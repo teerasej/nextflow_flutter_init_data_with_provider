@@ -13,11 +13,14 @@ class CovidTodayView extends StatelessWidget {
         title: Text('Covid Today'),
       ),
       body: FutureBuilder(
+        // We used FutureBuilder to determine which UI should be displayed
         future: context.read<DataProvider>().loader,
         builder:
             (BuildContext context, AsyncSnapshot<Response<dynamic>> snapshot) {
+          // if the Future's state is done. So we expected the data is ready to be use.
           if (snapshot.connectionState == ConnectionState.done) {
-            return Text('ok');
+            return Text(
+                'New case: ${context.read<DataProvider>().data['new_case']}');
           }
 
           return CircularProgressIndicator();
